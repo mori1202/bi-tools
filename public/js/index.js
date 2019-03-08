@@ -1,5 +1,5 @@
 var ctx = document.getElementById('myChart').getContext('2d');
-ctx.canvas.height = 200;
+ctx.canvas.height = 300;
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
@@ -31,7 +31,7 @@ var myChart = new Chart(ctx, {
 });
 
 var ctx2 = document.getElementById('myChart2').getContext('2d');
-ctx2.canvas.height = 200;
+ctx2.canvas.height = 300;
 var myChart2 = new Chart(ctx2, {
   type: 'bar',
   data: {
@@ -63,8 +63,47 @@ var myChart2 = new Chart(ctx2, {
 });
 
 var ctx3 = document.getElementById('myChart3').getContext('2d');
-ctx3.canvas.height = 200;
+ctx3.canvas.height = 300;
 var myChart3 = new Chart(ctx3, {
+  type: 'pie',
+  data: {
+    labels: [ '電話','Web'],
+    datasets: [{
+      data: [75,25], 
+      backgroundColor: ["rgba(153,255,51,0.4)", "rgba(255,153,0,0.4)"]
+    }]
+  },
+});
+
+
+var ctx4 = document.getElementById('myChart4').getContext('2d');
+ctx4.canvas.height = 300;
+var myChart4 = new Chart(ctx4, {
+  type: 'pie',
+  data: {
+    labels: [ 'プロフィール','写メ日記', '店舗トップ', '出勤情報', '料金システム', '女の子一覧', '即ヒメ', 'クーポン', 'イベント', 'ネット予約', 'フリースペース', '直送便', '地図/派遣エリア', 'メッセージ', 'お店情報', '動画', 'プラチナメール'],
+    datasets: [{
+      data: [805684, 658779,469041,365818, 103310, 87304,78693, 42019, 25838, 23464, 18634, 16302, 15403, 15001, 8001, 7561, 6666], 
+      backgroundColor: ["rgba(153,255,51,0.4)", "rgba(255,153,0,0.4)"]
+    }]
+  },
+  options: {
+        legend: {
+            display: true,
+            position: 'left',
+        }
+}
+});
+
+
+
+
+
+
+
+var ctx5 = document.getElementById('myChart5').getContext('2d');
+ctx5.canvas.height = 300;
+var myChart5 = new Chart(ctx5, {
   type: 'line',
   data: {
     labels: ['0:00', '1:00','2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
@@ -93,7 +132,6 @@ var myChart3 = new Chart(ctx3, {
          },
      }
 });
-
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 })

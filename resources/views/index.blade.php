@@ -4,7 +4,7 @@
 @stop
 @include('common.header')
 @section('content')
-<body>
+<body style="background:aliceblue;">
     <h1>{{ $hoge }}</h1>
     @include('card.action')
 @stop
