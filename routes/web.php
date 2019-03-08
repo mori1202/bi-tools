@@ -15,7 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', function() { 
-    return view('index')
-               ->with('hoge', '&nbsp;');
-});
+Route::get('index', 'IndexController@index');

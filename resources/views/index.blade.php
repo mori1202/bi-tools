@@ -1,11 +1,11 @@
 @extends('common.layout')
 @section('addCss')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 @stop
 @include('common.header')
 @section('content')
 <body style="background:aliceblue;">
-    <h1>{{ $hoge }}</h1>
     @include('card.action')
 @stop
 @section('addJs')
