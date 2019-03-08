@@ -9,6 +9,6 @@
     @yield('addCss')
 </head>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">デリヘル東京 アクセス解析ページ</a>
+      <a class="navbar-brand" href="#">店舗アクセス解析ページ</a>
     </nav>
 @stop
