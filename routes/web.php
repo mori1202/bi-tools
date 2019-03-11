@@ -16,3 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('index', 'IndexController@index');
+
+# 月別アクション総数（データjson）
+Route::get('action/monthly', 'ActionController@monthly');
+Route::get('action/monthly/{year}-{month}.json', 'ActionController@monthlyTotal');

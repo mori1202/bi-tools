@@ -3,7 +3,8 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>{{{isset($title) ? $title : 'Hello'}}}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>店舗向けアクセス解析ページ</title>
     @yield('addCss')
 </head>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">

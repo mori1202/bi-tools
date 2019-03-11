@@ -1,3 +1,9 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 var ctx = document.getElementById('myChart').getContext('2d');
 ctx.canvas.height = 300;
 var myChart = new Chart(ctx, {
