@@ -18,6 +18,7 @@
       </div>
       <div class="card-footer text-muted text-right">集計期間（2019-03-08 0:00 ～ 24:00）</div>
     </div>
+  </div>
 
 @php
   $today    = new \Carbon\Carbon('2019-03-08');
@@ -27,8 +28,10 @@
   for($i = 0; $i < $skip; $i++) { $tempDate->subDay(); }
 @endphp
 
+  <h1 style="font-size: 1.8rem;margin: 20px 0 0 20px;">コンテンツ活用</h1>
+  <div style="display:flex;flex-wrap:wrap;">
     <div class="card text-center" style="width:500px;height:640px;margin:30px;">
-      <div class="card-header">時間別アクセス数</div>
+      <div class="card-header">更新ボタン更新回数</div>
       <div class="card-body">
         <div style="text-align:right;margin-bottom:20px;">
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -55,8 +58,9 @@
         echo '<tr>';
         for($i=0; $i < 7; $i++) {
             $class = "date"; 
-            if($tempDate->month !== $today->month){$class .= " dark";}
-            echo '<td class="'. $class . '" data-toggle="tooltip" data-placement="top" title="XXX件"><span>';
+            $style = 100;
+            if($tempDate->month !== $today->month){$class .= " dark";}else{$style=rand(30,90);}
+            echo '<td class="'. $class . '" data-toggle="tooltip" data-placement="top" title="XXX件" style="background-color:hsl(270,100%,' . $style . '%);"><span>';
             echo $tempDate->month .'/'. $tempDate->day;
             echo '</span></td>';
             $tempDate->addDay();
@@ -71,5 +75,3 @@
       <div class="card-footer text-muted text-right">集計期間（2019-03-08 0:00 ～ 24:00）</div>
     </div>
   </div>
-
-

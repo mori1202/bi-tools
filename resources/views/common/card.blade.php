@@ -1,5 +1,5 @@
     <div class="card text-center" style="width:500px;height:640px;margin:30px;">
-      <div class="card-header">{{$title}}</div>
+      <div class="card-header">{{$title}} <span style="float:right;"><button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="詳細" style="padding:1px 6px;"><i class="fas fa-expand"></i></button></span></div>
       <div class="card-body">
         @include('common.card.button', ['graphType' => 'bar'])
         <canvas id="myChart"></canvas>

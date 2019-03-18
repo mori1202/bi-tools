@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use TreasureData_Autoloader;
+use TreasureData_APIFactory;
 
 class IndexController extends Controller
 {
@@ -35,4 +37,5 @@ class IndexController extends Controller
 #        return view('index', compact('hoge' ,'dates'));
         return view('index');
     }
+
 }

@@ -1,5 +1,5 @@
     <div class="card text-center" style="width:500px;height:640px;margin:30px;">
-      <div class="card-header">コンテンツ別電話クリック割合</div>
+      <div class="card-header">コンテンツ別電話クリック割合 <span style="float:right;"><button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="詳細" style="padding:1px 6px;"><i class="fas fa-expand"></i></button></span></div>
       <div class="card-body">
         <div style="text-align:right;">
           <div class="btn-group btn-group-toggle" data-toggle="buttons">

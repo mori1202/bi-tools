@@ -1,9 +1,5 @@
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
+console.log(Chart.defaults.global);
+//Chart.plugins.unregister(labels);
 var ctx = document.getElementById('myChart').getContext('2d');
 ctx.canvas.height = 300;
 var myChart = new Chart(ctx, {
@@ -79,6 +75,11 @@ var myChart3 = new Chart(ctx3, {
       backgroundColor: ["rgba(153,255,51,0.4)", "rgba(255,153,0,0.4)"]
     }]
   },
+  options: {
+    labels: {
+      render: 'label'
+    }
+  } 
 });
 
 

@@ -10,13 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('index', 'IndexController@index');
+Route::get('/', 'IndexController@index');
 
 # 月別アクション総数（データjson）
 Route::get('action/monthly', 'ActionController@monthly');
 Route::get('action/monthly/{year}-{month}.json', 'ActionController@monthlyTotal');
+Route::get('action/monthly/{year}-{month}.csv', 'ActionController@monthlyTotalCsv');
