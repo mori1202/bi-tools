@@ -1,4 +1,10 @@
-//Chart.plugins.unregister(labels);
+var labels = Chart.plugins.getAll().filter(function(p) {
+  return p.id === 'labels';
+})[0];
+// 一旦すべてunload
+Chart.plugins.unregister(labels);
+
+/* 月別アクション（棒グラフ）*/
 var ctx = document.getElementById('myChart').getContext('2d');
 ctx.canvas.height = 300;
 var myChart = new Chart(ctx, {
@@ -16,21 +22,22 @@ var myChart = new Chart(ctx, {
     }]
   },
   options: {
-         scales: {
-             xAxes: [{
-                 stacked: true,
-             }],
-             yAxes: [{
-                 stacked: true,
-                 ticks: {
-                     beginAtZero: true,
-                     min: 0
-                 }
-             }]
-         },
-     }
+    scales: {
+      xAxes: [{
+        stacked: true,
+      }],
+      yAxes: [{
+        stacked: true,
+        ticks: {
+          beginAtZero: true,
+          min: 0
+        }
+      }]
+    },
+  }
 });
 
+/* 日別アクション（棒グラフ）*/
 var ctx2 = document.getElementById('myChart2').getContext('2d');
 ctx2.canvas.height = 300;
 var myChart2 = new Chart(ctx2, {
@@ -48,21 +55,22 @@ var myChart2 = new Chart(ctx2, {
     }]
   },
   options: {
-         scales: {
-             xAxes: [{
-                 stacked: true,
-             }],
-             yAxes: [{
-                 stacked: true,
-                 ticks: {
-                     beginAtZero: true,
-                     min: 0
-                 }
-             }]
-         },
-     }
+    scales: {
+      xAxes: [{
+        stacked: true,
+      }],
+      yAxes: [{
+        stacked: true,
+        ticks: {
+          beginAtZero: true,
+          min: 0
+        }
+      }]
+    },
+  }
 });
 
+/* アクション種別割合（円グラフ）*/
 var ctx3 = document.getElementById('myChart3').getContext('2d');
 ctx3.canvas.height = 300;
 var myChart3 = new Chart(ctx3, {
@@ -75,13 +83,13 @@ var myChart3 = new Chart(ctx3, {
     }]
   },
   options: {
-    labels: {
-      render: 'label'
-    }
-  } 
+    tooltips: { enabled: false }
+  },
+  plugins: [ labels ] 
 });
 
 
+/* コンテンツ別電話クリック割合（円グラフ）*/
 var ctx4 = document.getElementById('myChart4').getContext('2d');
 ctx4.canvas.height = 300;
 var myChart4 = new Chart(ctx4, {
@@ -94,19 +102,15 @@ var myChart4 = new Chart(ctx4, {
     }]
   },
   options: {
-        legend: {
-            display: true,
-            position: 'left',
-        }
-}
+    legend: {
+      display: true,
+      position: 'left',
+    },
+  },
+  plugins: [ labels ]
 });
 
-
-
-
-
-
-
+/* 時間別アクセス数(折れ線グラフ)*/
 var ctx5 = document.getElementById('myChart5').getContext('2d');
 ctx5.canvas.height = 300;
 var myChart5 = new Chart(ctx5, {
@@ -138,8 +142,13 @@ var myChart5 = new Chart(ctx5, {
          },
      }
 });
+
+/* ready */
 $(function () {
+  // tooltip
   $('[data-toggle="tooltip"]').tooltip();
+
+  // date-picker
   $('#datetimepicker1').datetimepicker({
     format: 'YYYY/MM',
     language: 'ja',
