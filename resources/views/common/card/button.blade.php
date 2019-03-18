@@ -3,8 +3,10 @@
   $buttonIcon = null;
   if( $graphType == 'bar' ){
     $alt = '棒グラフ表示';
-    $buttonIcon = '<i class="far fa-chart-bar"></i>';
+  } else if ( $graphType == 'pie' ){
+    $alt = '円グラフ表示';
   }
+  $buttonIcon = '<i class="fa fa-chart-' . $graphType. '"></i>';
 @endphp
 <div style="text-align:right;">
   <div class="btn-group btn-group-toggle" data-toggle="buttons">

@@ -5,7 +5,7 @@ var labels = Chart.plugins.getAll().filter(function(p) {
 Chart.plugins.unregister(labels);
 
 /* 月別アクション（棒グラフ）*/
-var ctx = document.getElementById('myChart').getContext('2d');
+var ctx = document.getElementById('monthlyAction').getContext('2d');
 ctx.canvas.height = 300;
 var myChart = new Chart(ctx, {
   type: 'bar',
@@ -38,7 +38,7 @@ var myChart = new Chart(ctx, {
 });
 
 /* 日別アクション（棒グラフ）*/
-var ctx2 = document.getElementById('myChart2').getContext('2d');
+var ctx2 = document.getElementById('dailyAction').getContext('2d');
 ctx2.canvas.height = 300;
 var myChart2 = new Chart(ctx2, {
   type: 'bar',
@@ -71,7 +71,7 @@ var myChart2 = new Chart(ctx2, {
 });
 
 /* アクション種別割合（円グラフ）*/
-var ctx3 = document.getElementById('myChart3').getContext('2d');
+var ctx3 = document.getElementById('typeAction').getContext('2d');
 ctx3.canvas.height = 300;
 var myChart3 = new Chart(ctx3, {
   type: 'pie',
@@ -90,7 +90,7 @@ var myChart3 = new Chart(ctx3, {
 
 
 /* コンテンツ別電話クリック割合（円グラフ）*/
-var ctx4 = document.getElementById('myChart4').getContext('2d');
+var ctx4 = document.getElementById('typeContents').getContext('2d');
 ctx4.canvas.height = 300;
 var myChart4 = new Chart(ctx4, {
   type: 'pie',
