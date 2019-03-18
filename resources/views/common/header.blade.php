@@ -7,7 +7,8 @@
     <title>店舗向けアクセス解析ページ</title>
     @yield('addCss')
 </head>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">店舗アクセス解析ページ</a>
-    </nav>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="color:#ffffff;">
+  <a class="navbar-brand" href="#">店舗アクセス解析ページ</a>
+  @include('common.month-picker')
+</nav>
 @stop

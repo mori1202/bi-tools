@@ -1,4 +1,3 @@
-console.log(Chart.defaults.global);
 //Chart.plugins.unregister(labels);
 var ctx = document.getElementById('myChart').getContext('2d');
 ctx.canvas.height = 300;
@@ -141,4 +140,18 @@ var myChart5 = new Chart(ctx5, {
 });
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
+  $('#datetimepicker1').datetimepicker({
+    format: 'YYYY/MM',
+    language: 'ja',
+    viewMode: 'months',
+    minDate: '2000/01/01',
+    maxDate: '2099/12/31',
+    buttons: {
+      showToday: true
+    },
+    tooltips: {
+      today: '今月を選択します',
+    },
+    defaultDate: moment().format('YYYY/MM'),
+  });
 })
