@@ -1,8 +1,11 @@
-    <div class="card text-center" style="width:470px;height:640px;margin:30px 0 30px 5px;">
+    <div class="card text-center" style="width:470px;height:580px;margin:30px 0 30px 5px;">
       <div class="card-header">{{$title}} <span style="float:right;"><button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="詳細" style="padding:1px 6px;"><i class="fas fa-expand"></i></button></span></div>
       <div class="card-body">
-        @include('common.card.button', ['graphType' => $graphType])
-        <canvas id="{{$chartId}}"></canvas>
+        <div class="loading-container {{$chartId}}">
+          <div class="spinner-border" style="width:4rem;height:4rem;" role="status"></div><br>
+          <span>Loading...</span>
+        </div>
+        <canvas id="{{$chartId}}" style="display:none;"></canvas>
       </div>
       <div class="card-footer text-muted text-right">
         集計期間

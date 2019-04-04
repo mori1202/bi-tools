@@ -16,3 +16,13 @@ Route::get('/', 'IndexController@index');
 Route::get('action/monthly', 'ActionController@monthly');
 Route::get('action/monthly/{year}-{month}.json', 'ActionController@monthlyTotal');
 Route::get('action/monthly/{year}-{month}.csv', 'ActionController@monthlyTotalCsv');
+
+// 日別アクション総数(jsonデータ取得
+Route::get('action/daily/{year}-{month}-{day}.json', 'ActionController@dailyTotal');
+// アクション種別割合(jsonデータ取得
+Route::get('action/type/{year}-{month}.json', 'ActionController@type');
+// コンテンツ別電話クリック割合(jsonデータ取得
+Route::get('action/type_contents/{year}-{month}.json', 'ActionController@typeContents');
+
+// 更新ボタン押下回数(jsonデータ取得
+Route::get('reload/monthly/{year}-{month}.json', 'ContentUtilizeController@getReloadPushCount');

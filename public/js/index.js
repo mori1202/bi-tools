@@ -1,85 +1,108 @@
+const LABEL_LEGEND1 = '電話';
+const LABEL_LEGEND2 = 'WEB予約';
+const BGCOLOR_LEGEND1 = "rgba(153,255,51,0.4)";
+const BGCOLOR_LEGEND2 = "rgba(255,153,0,0.4)";
+const GRAPH_TYPE_BAR = 'bar';
+const GRAPH_TYPE_PIE = 'pie';
+const AJAX_URL_MAP = {
+    'monthlyAction': '/action/monthly/{}.json', 
+    'dailyAction'  : '/action/daily/{}.json',
+    'typeAction'   : '/action/type/{}.json',
+    'typeContents'   : '/action/type_contents/{}.json'
+};
+
 var labels = Chart.plugins.getAll().filter(function(p) {
   return p.id === 'labels';
 })[0];
 // 一旦すべてunload
 Chart.plugins.unregister(labels);
 
-/* 月別アクション（棒グラフ）*/
-var ctx = document.getElementById('monthlyAction').getContext('2d');
-ctx.canvas.height = 300;
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mar', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    datasets: [{
-      label: '電話',
-      data: [500, 450, 550, 700, 320, 300, 700, 850, 600, 500, 450, 999],
-      backgroundColor: "rgba(153,255,51,0.4)"
-    }, {
-      label: 'Web',
-      data: [300, 700, 850, 600, 500, 450, 999, 500, 450, 550, 700, 320],
-      backgroundColor: "rgba(255,153,0,0.4)"
-    }]
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        stacked: true,
-      }],
-      yAxes: [{
-        stacked: true,
-        ticks: {
-          beginAtZero: true,
-          min: 0
-        }
-      }]
-    },
-  }
+// CSRFトークンをヘッダへ埋め込む
+$.ajaxSetup({
+    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
 });
 
-/* 日別アクション（棒グラフ）*/
-var ctx2 = document.getElementById('dailyAction').getContext('2d');
-ctx2.canvas.height = 300;
-var myChart2 = new Chart(ctx2, {
-  type: 'bar',
-  data: {
-    labels: ['2019-02-07','2019-02-08','2019-02-09','2019-02-10','2019-02-11','2019-02-12','2019-02-13','2019-02-14','2019-02-15','2019-02-16','2019-02-17','2019-02-18','2019-02-19','2019-02-20','2019-02-21','2019-02-22','2019-02-23','2019-02-24','2019-02-25','2019-02-26','2019-02-27','2019-02-28','2019-03-01','2019-03-02','2019-03-03','2019-03-04','2019-03-05','2019-03-06','2019-03-07','2019-03-08',],
-    datasets: [{
-      label: '電話',
-      data: [50, 45, 55, 70, 32, 30, 70, 85, 60, 50, 45, 99,50, 45, 55, 70, 32, 30, 70, 85, 60, 50, 45, 99,50, 45, 55, 70, 32, 30 ],
-      backgroundColor: "rgba(153,255,51,0.4)"
-    }, {
-      label: 'Web予約',
-      data: [70, 32, 30, 70, 85, 60, 50, 45, 99,50, 45, 55, 70, 32, 30, 50, 45, 55, 70, 32, 30, 70, 85, 60, 50, 45, 99,50, 45, 55, ],
-      backgroundColor: "rgba(255,153,0,0.4)"
-    }]
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        stacked: true,
-      }],
-      yAxes: [{
-        stacked: true,
-        ticks: {
-          beginAtZero: true,
-          min: 0
-        }
+// 月別アクション総数グラフ描画関数
+var callbackMonthlyActionFunc = function drawMonthlyActionGraph(data){
+  var ctx = document.getElementById('monthlyAction').getContext('2d');
+  ctx.canvas.height = 300;
+  var myChart = new Chart(ctx, {
+    type: GRAPH_TYPE_BAR,
+    data: {
+      labels: data.label,
+      datasets: [{
+        label: LABEL_LEGEND1,
+        data: data.tel,
+        backgroundColor: BGCOLOR_LEGEND1
+      }, {
+        label: LABEL_LEGEND2,
+        data: data.web,
+        backgroundColor: BGCOLOR_LEGEND2
       }]
     },
-  }
-});
+    options: {
+      scales: {
+        xAxes: [{
+          stacked: true,
+        }],
+        yAxes: [{
+          stacked: true,
+          ticks: {
+            beginAtZero: true,
+            min: 0
+          }
+        }]
+      },
+    }
+  });
+};
+
+// 日別アクション総数グラフ描画関数
+var callbackDailyActionFunc = function drawDailyActionGraph(data){
+  var ctx = document.getElementById('dailyAction').getContext('2d');
+  ctx.canvas.height = 300;
+  var myChart2 = new Chart(ctx, {
+    type: GRAPH_TYPE_BAR,
+    data: {
+      labels: data.label,
+      datasets: [{
+        label: LABEL_LEGEND1,
+        data: data.tel,
+        backgroundColor: BGCOLOR_LEGEND1
+      }, {
+        label: LABEL_LEGEND2,
+        data: data.web,
+        backgroundColor: BGCOLOR_LEGEND2
+      }]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          stacked: true,
+        }],
+        yAxes: [{
+          stacked: true,
+          ticks: {
+            beginAtZero: true,
+            min: 0
+          }
+        }]
+      },
+    }
+  });
+};
 
 /* アクション種別割合（円グラフ）*/
-var ctx3 = document.getElementById('typeAction').getContext('2d');
-ctx3.canvas.height = 300;
-var myChart3 = new Chart(ctx3, {
-  type: 'pie',
+var callbackTypeActionFunc = function drawTypeActionGraph(data){
+var ctx = document.getElementById('typeAction').getContext('2d');
+ctx.canvas.height = 300;
+var myChart3 = new Chart(ctx, {
+  type: GRAPH_TYPE_PIE,
   data: {
-    labels: [ '電話','Web'],
+    labels: [LABEL_LEGEND1, LABEL_LEGEND2],
     datasets: [{
-      data: [32933,2302], 
-      backgroundColor: ["rgba(153,255,51,0.4)", "rgba(255,153,0,0.4)"]
+      data: [data.tel,data.web], 
+      backgroundColor: [BGCOLOR_LEGEND1, BGCOLOR_LEGEND2]
     }]
   },
   options: {
@@ -87,17 +110,19 @@ var myChart3 = new Chart(ctx3, {
   },
   plugins: [ labels ] 
 });
+};
 
 
 /* コンテンツ別電話クリック割合（円グラフ）*/
-var ctx4 = document.getElementById('typeContents').getContext('2d');
-ctx4.canvas.height = 300;
-var myChart4 = new Chart(ctx4, {
-  type: 'pie',
+var callbackTypeContentsFunc = function drawTypeContentdGraph(data){
+var ctx = document.getElementById('typeContents').getContext('2d');
+ctx.canvas.height = 300;
+var myChart4 = new Chart(ctx, {
+  type: GRAPH_TYPE_PIE,
   data: {
     labels: [ 'プロフィール','写メ日記', '店舗トップ', '出勤情報', '料金システム', '女の子一覧', '即ヒメ', 'クーポン', 'イベント', 'ネット予約', 'フリースペース', '直送便', '地図/派遣エリア', 'メッセージ', 'お店情報', '動画', 'プラチナメール'],
     datasets: [{
-      data: [805684, 658779,469041,365818, 103310, 87304,78693, 42019, 25838, 23464, 18634, 16302, 15403, 15001, 8001, 7561, 6666], 
+      data: data, 
       backgroundColor: ["rgba(153,255,51,0.4)", "rgba(255,153,0,0.4)", '#845a93','#0a0376','#76f696','#51989b','#17a4d7','#a4a805','#07b46a','#ce4f21','#fe0e6e','#8ab031','#56019a','#565a81']
     }]
   },
@@ -109,6 +134,7 @@ var myChart4 = new Chart(ctx4, {
   },
   plugins: [ labels ]
 });
+};
 
 /* 時間別アクセス数(折れ線グラフ)*/
 var ctx5 = document.getElementById('myChart5').getContext('2d');
@@ -150,17 +176,69 @@ $(function () {
 
   // date-picker
   $('#datetimepicker1').datetimepicker({
-    format: 'YYYY/MM',
+    format: 'YYYY-MM',
     language: 'ja',
     viewMode: 'months',
-    minDate: '2000/01/01',
-    maxDate: '2099/12/31',
+    minDate: '2000-01-01',
+    maxDate: '2099-12-31',
     buttons: {
       showToday: true
     },
     tooltips: {
       today: '今月を選択します',
     },
-    defaultDate: moment().format('YYYY/MM'),
+    defaultDate: moment().format('YYYY-MM'),
   });
+
+  // 変更時にhiddenの値も更新する
+  $('#datetimepicker1').on('change.datetimepicker', function(e) {
+    $('#filter-month').val(e.date.format('YYYY-MM'));
+  });
+
+  yearMonth    = $('#filter-month').val();
+  yearMonthDay = $('#filter-month').val() + '-01';
+
+  ajaxAction('monthlyAction', callbackMonthlyActionFunc);
+  ajaxAction('dailyAction',   callbackDailyActionFunc);
+  ajaxAction('typeAction',    callbackTypeActionFunc);
+  ajaxAction('typeContents',  callbackTypeContentsFunc);
 })
+
+function ajaxAction(cardId, callbackFunc){
+  if($('#' + cardId).length){
+    var url;
+    if(cardId === 'dailyAction') { url = AJAX_URL_MAP[cardId].replace('{}', yearMonthDay); }  
+    else { url = AJAX_URL_MAP[cardId].replace('{}', yearMonth); }
+
+    $.ajax({
+      type: 'GET',
+      url: url,
+      dataType: 'json',
+    }).then(
+      function(data){
+        if(data.errorMsg){
+          dispErrorMsg(cardId, data.errorMsg); 
+        } else {
+          callbackFunc(data);
+          $('#' + cardId).css('display','block');
+          $('.loading-container.' + cardId).css('display','none');
+        }
+      },
+      function(data){
+        console.log('通信に失敗しました');
+      }
+    ); 
+  }
+}
+
+
+/* エラーカード表示関数  */
+function dispErrorMsg(cardId, errors){
+  $('.loading-container.' + cardId).css('display','none');
+  var tmp = '<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><ul style="margin-bottom:0;">';
+  $.each(errors, function(idx, msg){
+    tmp = tmp + '<li class="text-left">' + msg + '</li>';  
+  });
+  tmp = tmp + '</ul></div>';
+  $('.loading-container.' + cardId).before(tmp);
+}
